@@ -40,7 +40,7 @@ network:
       optional: true
   wifis:
     wlan0:
-      dhcp4: false
+      dhcp4: true
       optional: true
       access-points:
         "$ssid":
@@ -58,7 +58,6 @@ network:
       interfaces:
         - eth0
         - eth1
-        - wlan0
 EOF
 
 # Display netplan yaml
@@ -75,3 +74,4 @@ if [ $reboot_yn == "Y" ] || [ $reboot_yn == "y" ]; then
 else
     echo -e "\nThe system will not reboot."
 fi
+
