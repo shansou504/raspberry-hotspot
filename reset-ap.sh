@@ -40,7 +40,7 @@ network:
       optional: true
   wifis:
     wlan0:
-      dhcp4: true
+      dhcp4: false
       optional: true
       access-points:
         "$ssid":
@@ -48,6 +48,12 @@ network:
           password: "$psk"
           networkmanager:
             passthrough:
+              connection.master: br0
+              connection.slave-type: bridge
+              ipv4.method: disabled
+              bridge-port.priority: 32
+              bridge-port.path-cost: 100
+              bridge-port.hairpin-mode: no
               802-11-wireless.powersave: 2
               802-11-wireless-security.pairwise: ccmp
               802-11-wireless-security.proto: rsn
@@ -58,6 +64,7 @@ network:
       interfaces:
         - eth0
         - eth1
+        - wlan0
 EOF
 
 # Display netplan yaml
@@ -74,4 +81,3 @@ if [ $reboot_yn == "Y" ] || [ $reboot_yn == "y" ]; then
 else
     echo -e "\nThe system will not reboot."
 fi
-
